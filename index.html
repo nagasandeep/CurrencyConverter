@@ -239,25 +239,7 @@
         </div>
     </div>
     
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 	
-	<script type="text/ng-template" id="currencycontrol.html">
-		<div class='row'>
-			<div class='col-xs-8'>
-				<input type='number' placeholder='{{currencyobject.selectedcurrency.currency}}' class='form-control' ng-model='currencyobject.amount' ng-focus='changeDirection(source)'>
-			</div>
-			<div class='col-xs-4'>
-				<select name='currencySelect' id='currencySelect' ng-model='currencyobject.selectedcurrency' ng-options='c.currency for c in currencies' class='form-control' ng-focus='changeDirection(1)'>
-				</select>
-			</div>
-		</div>
-	</script>
-	
-    
-
-
-
-
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/nagasandeep/CurrencyConverter">Currencyconverter</a> is maintained by <a href="https://github.com/nagasandeep">nagasandeep</a>.</span>
@@ -267,6 +249,6 @@
 
     </section>
 
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
   </body>
 </html>
