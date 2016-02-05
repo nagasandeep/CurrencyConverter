@@ -27,60 +27,8 @@
     		margin:0px;
     	}
     </style>
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Currencyconverter</h1>
-      <h2 class="project-tagline">Converts Currency from one to another</h2>
-      <a href="https://github.com/nagasandeep/CurrencyConverter" class="btn">View on GitHub</a>
-      <a href="https://github.com/nagasandeep/CurrencyConverter/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/nagasandeep/CurrencyConverter/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
-
-    <section class="main-content">
-
-<div ng-app='myApp' ng-controller="CurrencyConverter" class="panel panel-default board">
-        <h3>Currency converter</h3>
-        <br>    
-        <currencycontrol 
-            currencyobject = from
-            currencies = currencies
-            direction = direction
-            source = 1
-        >
-        </currencycontrol>
-
-        <br>
-
-        <currencycontrol
-            currencyobject=to
-            currencies = currencies
-            direction = direction
-            source = 0
-        >
-        </currencycontrol>
-
-        <br>
-
-        <div class="row description">
-            <div class="col-xs-12 txt txt-large"><h5>1 {{from.selectedcurrency.description}} equals </h5></div>
-            <div class="col-xs-12 txt txt-large"><h3>{{(convert(from.selectedcurrency.currency, to.selectedcurrency.currency, 1)|number:3)+" "+to.selectedcurrency.description}}</h3></div>
-        </div>
-    </div>
     
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-	<script type="text/ng-template" id="currencycontrol.html">
-		<div class='row'>
-			<div class='col-xs-8'>
-				<input type='number' placeholder='{{currencyobject.selectedcurrency.currency}}' class='form-control' ng-model='currencyobject.amount' ng-focus='changeDirection(source)'>
-			</div>
-			<div class='col-xs-4'>
-				<select name='currencySelect' id='currencySelect' ng-model='currencyobject.selectedcurrency' ng-options='c.currency for c in currencies' class='form-control' ng-focus='changeDirection(1)'>
-				</select>
-			</div>
-		</div>
-	</script>
-	<script>
+    <script>
 		var app = angular.module("myApp", []);
 
 		function getCurrencies()
@@ -249,6 +197,62 @@
 		    };
 		});
 	</script>
+	
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Currencyconverter</h1>
+      <h2 class="project-tagline">Converts Currency from one to another</h2>
+      <a href="https://github.com/nagasandeep/CurrencyConverter" class="btn">View on GitHub</a>
+      <a href="https://github.com/nagasandeep/CurrencyConverter/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/nagasandeep/CurrencyConverter/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+
+<div ng-app='myApp' ng-controller="CurrencyConverter" class="panel panel-default board">
+        <h3>Currency converter</h3>
+        <br>    
+        <currencycontrol 
+            currencyobject = from
+            currencies = currencies
+            direction = direction
+            source = 1
+        >
+        </currencycontrol>
+
+        <br>
+
+        <currencycontrol
+            currencyobject=to
+            currencies = currencies
+            direction = direction
+            source = 0
+        >
+        </currencycontrol>
+
+        <br>
+
+        <div class="row description">
+            <div class="col-xs-12 txt txt-large"><h5>1 {{from.selectedcurrency.description}} equals </h5></div>
+            <div class="col-xs-12 txt txt-large"><h3>{{(convert(from.selectedcurrency.currency, to.selectedcurrency.currency, 1)|number:3)+" "+to.selectedcurrency.description}}</h3></div>
+        </div>
+    </div>
+    
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	
+	<script type="text/ng-template" id="currencycontrol.html">
+		<div class='row'>
+			<div class='col-xs-8'>
+				<input type='number' placeholder='{{currencyobject.selectedcurrency.currency}}' class='form-control' ng-model='currencyobject.amount' ng-focus='changeDirection(source)'>
+			</div>
+			<div class='col-xs-4'>
+				<select name='currencySelect' id='currencySelect' ng-model='currencyobject.selectedcurrency' ng-options='c.currency for c in currencies' class='form-control' ng-focus='changeDirection(1)'>
+				</select>
+			</div>
+		</div>
+	</script>
+	
     
 
 
