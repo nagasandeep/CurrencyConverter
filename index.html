@@ -19,39 +19,9 @@
     </section>
 
     <section class="main-content">
-      <pre><code>&lt;div ng-app='myApp' ng-controller="CurrencyConverter" class="panel panel-default board"&gt;
-    &lt;h3&gt;Currency converter&lt;/h3&gt;
-    &lt;br&gt;    
-    &lt;currencycontrol 
-        currencyobject = from
-        currencies = currencies
-        direction = direction
-        source = 1
-    &gt;
-    &lt;/currencycontrol&gt;
-
-    &lt;br&gt;
-
-    &lt;currencycontrol
-        currencyobject=to
-        currencies = currencies
-        direction = direction
-        source = 0
-    &gt;
-    &lt;/currencycontrol&gt;
-
-    &lt;br&gt;
-
-    &lt;div class="row description"&gt;
-        &lt;div class="col-xs-12 txt txt-large"&gt;&lt;h5&gt;1 {{from.selectedcurrency.description}} equals &lt;/h5&gt;&lt;/div&gt;
-        &lt;div class="col-xs-12 txt txt-large"&gt;&lt;h3&gt;{{(convert(from.selectedcurrency.currency, to.selectedcurrency.currency, 1)|number:3)+" "+to.selectedcurrency.description}}&lt;/h3&gt;&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-.board
-</code></pre>
-
-<p>{
+      
+    .board
+{
     width: 700px;
     margin: 100px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -60,15 +30,39 @@
     padding-left:40px;
     padding-top:20px;
     padding-bottom:20px;
-}</p>
+}
 
-<p>.description h3
+.description h3
 {
     margin:0px;
 }
 
-    </p>
 
+<pre><code>&lt;link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"&gt;
+</code></pre>
+
+<div>
+        <h3>
+<a id="currency-converter" class="anchor" href="#currency-converter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Currency converter</h3>
+        <br>    
+        
+        
+
+        <br>
+
+        
+        
+
+        <br>
+
+        <div>
+            <div><h5>
+<a id="1-fromselectedcurrencydescription-equals-" class="anchor" href="#1-fromselectedcurrencydescription-equals-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 {{from.selectedcurrency.description}} equals </h5></div>
+            <div><h3>
+<a id="convertfromselectedcurrencycurrency-toselectedcurrencycurrency-1number3-toselectedcurrencydescription" class="anchor" href="#convertfromselectedcurrencycurrency-toselectedcurrencycurrency-1number3-toselectedcurrencydescription" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>{{(convert(from.selectedcurrency.currency, to.selectedcurrency.currency, 1)|number:3)+" "+to.selectedcurrency.description}}</h3></div>
+        </div>
+    </div>
+    
 
 
 
