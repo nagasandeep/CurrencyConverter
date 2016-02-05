@@ -147,7 +147,7 @@ app.directive('currencycontrol', function()
 
         restrict: "E",
 
-        templateUrl: "currencycontrol.html",
+        templateUrl: "directives/currencycontrol.html",
 
         controller: function($scope)
         {
