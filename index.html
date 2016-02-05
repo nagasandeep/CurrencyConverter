@@ -8,6 +8,25 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+    	.board
+    	{
+    		width: 700px;
+    		margin: 100px;
+    		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    		background-color: transparent;
+    		padding-right:40px;
+    		padding-left:40px;
+    		padding-top:20px;
+    		padding-bottom:20px;
+    	}
+
+    	.description h3
+    	{
+    		margin:0px;
+    	}
+    </style>
   </head>
   <body>
     <section class="page-header">
@@ -19,49 +38,217 @@
     </section>
 
     <section class="main-content">
-      
-    .board
-{
-    width: 700px;
-    margin: 100px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: transparent;
-    padding-right:40px;
-    padding-left:40px;
-    padding-top:20px;
-    padding-bottom:20px;
-}
 
-.description h3
-{
-    margin:0px;
-}
-
-
-<pre><code>&lt;link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"&gt;
-</code></pre>
-
-<div>
-        <h3>
-<a id="currency-converter" class="anchor" href="#currency-converter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Currency converter</h3>
+<div ng-app='myApp' ng-controller="CurrencyConverter" class="panel panel-default board">
+        <h3>Currency converter</h3>
         <br>    
-        
-        
+        <currencycontrol 
+            currencyobject = from
+            currencies = currencies
+            direction = direction
+            source = 1
+        >
+        </currencycontrol>
 
         <br>
 
-        
-        
+        <currencycontrol
+            currencyobject=to
+            currencies = currencies
+            direction = direction
+            source = 0
+        >
+        </currencycontrol>
 
         <br>
 
-        <div>
-            <div><h5>
-<a id="1-fromselectedcurrencydescription-equals-" class="anchor" href="#1-fromselectedcurrencydescription-equals-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 {{from.selectedcurrency.description}} equals </h5></div>
-            <div><h3>
-<a id="convertfromselectedcurrencycurrency-toselectedcurrencycurrency-1number3-toselectedcurrencydescription" class="anchor" href="#convertfromselectedcurrencycurrency-toselectedcurrencycurrency-1number3-toselectedcurrencydescription" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>{{(convert(from.selectedcurrency.currency, to.selectedcurrency.currency, 1)|number:3)+" "+to.selectedcurrency.description}}</h3></div>
+        <div class="row description">
+            <div class="col-xs-12 txt txt-large"><h5>1 {{from.selectedcurrency.description}} equals </h5></div>
+            <div class="col-xs-12 txt txt-large"><h3>{{(convert(from.selectedcurrency.currency, to.selectedcurrency.currency, 1)|number:3)+" "+to.selectedcurrency.description}}</h3></div>
         </div>
     </div>
+    
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<script type="text/ng-template" id="currencycontrol.html">
+		<div class='row'>
+			<div class='col-xs-8'>
+				<input type='number' placeholder='{{currencyobject.selectedcurrency.currency}}' class='form-control' ng-model='currencyobject.amount' ng-focus='changeDirection(source)'>
+			</div>
+			<div class='col-xs-4'>
+				<select name='currencySelect' id='currencySelect' ng-model='currencyobject.selectedcurrency' ng-options='c.currency for c in currencies' class='form-control' ng-focus='changeDirection(1)'>
+				</select>
+			</div>
+		</div>
+	</script>
+	<script>
+		var app = angular.module("myApp", []);
+
+		function getCurrencies()
+		{
+		    var a = 
+		    [
+		        {
+		            currency: 'INR',
+		            value: 1,
+		            description: 'Indian Rupee'
+		        },
+		        {
+		            currency: 'USD',
+		            value: 0.015,
+		            description: 'US Dollar'
+		        },
+		        {
+		            currency: 'GBP',
+		            value: 0.010,
+		            description: 'British Pound'
+		        },
+		        {
+		            currency: 'AED',
+		            value: 0.054,
+		            description: 'United Arab Emirates Dirham'
+		        },
+		        {
+		            currency: 'AUD',
+		            value: 0.021,
+		            description: 'Australian Dollar'
+		        },
+		        {
+		            currency: 'EUR',
+		            value: 0.014,
+		            description: 'Euro'
+		        }
+		    ];
+		    return a;
+		}
+
+		app.controller('CurrencyConverter', function($scope, $filter)
+		{
+		    $scope.currencies = getCurrencies();
+		    $direction = 0;
+
+		    $scope.convert = function(from, to, amount)
+		    {
+		        var fromFound = $filter('filter')($scope.currencies, {currency: from}, true);
+		        var toFound = $filter('filter')($scope.currencies, {currency: to}, true);
+		        var IndianAmount = 0;
+		        if(fromFound.length)
+		            IndianAmount = amount/fromFound[0].value;
+		        var toAmount = toFound[0].value*IndianAmount
+		        return toAmount;
+		    }
+
+		    $scope.updateTarget = function()
+		    {
+		        $scope.to.amount = 
+		            $scope.convert(
+		                $scope.from.selectedcurrency.currency,
+		                $scope.to.selectedcurrency.currency,
+		                $scope.from.amount)
+		            if($scope.to.amount == 0)
+		                $scope.to.amount = '';
+		    }
+
+		    $scope.updateSource = function()
+		    {
+		        $scope.from.amount = 
+		            $scope.convert(
+		                $scope.to.selectedcurrency.currency,
+		                $scope.from.selectedcurrency.currency,
+		                $scope.to.amount)
+		            if($scope.from.amount == 0)
+		                $scope.from.amount = '';
+		    }
+
+		    $scope.from = 
+		    {
+		        selectedcurrency : $scope.currencies[0]
+		    };
+
+		    $scope.to = 
+		    {
+		        selectedcurrency : $scope.currencies[1]
+		    };
+
+		    $scope.$watch(
+		        'from.amount',
+		        function(newValue, oldValue)
+		        {
+		            if($scope.direction == 0)
+		                $scope.updateTarget();
+		        }
+		    );
+
+
+
+		    $scope.$watch(
+		        function()
+		        {
+		            return $scope.from.selectedcurrency.currency;
+		        },
+		        function(newValue, oldValue)
+		        {
+		            if($scope.direction == 0)
+		                $scope.updateTarget();
+		        }
+		    );
+
+		    $scope.$watch(
+		        function()
+		        {
+		            return $scope.to.selectedcurrency.currency;
+		        },
+		        function(newValue, oldValue)
+		        {
+		            if($scope.direction == 0)
+		                $scope.updateTarget();
+		        }
+		    );
+
+		    $scope.$watch(
+		        function()
+		        {
+		            return $scope.to.amount;
+		        },
+		        function(newValue, oldValue)
+		        {
+		            if($scope.direction == 1)
+		                $scope.updateSource();
+		        }
+		    );
+		});
+
+		app.directive('currencycontrol', function()
+		{
+		    return {
+
+		        scope:{
+		            currencyobject:'=',
+		            currencies:'=',
+		            direction:'=',
+		            source:'='
+		        },
+
+		        restrict: "E",
+
+		        templateUrl: "currencycontrol.html",
+
+		        controller: function($scope)
+		        {
+		            $scope.changeDirection = function(source)
+		            {
+		                if(source == 0)
+		                {
+		                    $scope.direction = 1;
+		                }
+		                else
+		                {
+		                    $scope.direction = 0;
+		                }
+		            }
+		        }
+		    };
+		});
+	</script>
     
 
 
